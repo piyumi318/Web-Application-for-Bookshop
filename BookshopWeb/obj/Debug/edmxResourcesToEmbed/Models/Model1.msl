@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BookShopDatabaseModelStoreContainer" CdmEntityContainer="BookShopDatabaseEntities2">
+    <EntitySetMapping Name="AdminDetails">
+      <EntityTypeMapping TypeName="BookShopDatabaseModel.AdminDetail">
+        <MappingFragment StoreEntitySet="AdminDetails">
+          <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+          <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookDetails">
+      <EntityTypeMapping TypeName="BookShopDatabaseModel.BookDetail">
+        <MappingFragment StoreEntitySet="BookDetails">
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="BookName" ColumnName="BookName" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="BookShopDatabaseModel.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="CartID" ColumnName="CartID" />
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="BookShopDatabaseModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="BookShopDatabaseModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="BookShopDatabaseModel.UserDetail">
+        <MappingFragment StoreEntitySet="UserDetails">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="BDay" ColumnName="BDay" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

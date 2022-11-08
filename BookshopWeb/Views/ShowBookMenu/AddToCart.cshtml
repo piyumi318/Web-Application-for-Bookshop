@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "AddToCart"; }
+
+<h2>AddToCart</h2>
+@using BookshopWeb.Models{
+
+<div class="container">
+    <h2 class="text-center">Cart</h2>
+
+
+    @{ decimal s = 0;
+    }
+    @using (Html.BeginForm("Update", "ShowBooks", FormMethod.Post))
+    {
+
+        foreach (Cart Item in (List<Cart>)Session["Cart"])
+        {
+      //    s = s + Item.book.Price.Value * Item.Quantity;
+
+            <table class="table">
+                <tr>
+                    <th>Image</th>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+
+                </tr>
+                <tr>
+                    <td> <img src="~/Book/@Item.book.Image" style="width:200px; height:200px;" /></td>
+                    <td> <h4>@Item.book.BookName</h4></td>
+                    <td> <h4>@Item.book.Author</h4></td>
+                    <td> <h4>@Item.book.Price</h4></td>
+
+                    <td>  <h4>@Item.book.Category.CategoryName</h4></td>
+                    <td><h4><input type="text" name="Quantity" id="Quantity" value="@Item.Quantity" /></h4></td>
+                    <td>@(Item.book.Price.Value * Item.Quantity)</td>
+                    <td>  @Html.ActionLink("Delete", "Delete", new { id = @Item.book.BookID })</td>
+
+                </tr>
+
+                }
+            </table>
+
+        } <h3>Total @s</h3>
+        <input type="submit" name="Update" value="Update" />
+        <span class="btn btn-default">@Html.ActionLink("Process Order", "Create", "Order")</span>
+    }
+
+
+
+</div>
+
+
+
+
+
+

@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BookShopDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminDetails">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="BookDetails">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookName" Type="varchar" MaxLength="50" />
+          <Property Name="Author" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="60" />
+          <Property Name="Image" Type="varchar" MaxLength="100" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="TotalPrice" Type="int" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="BookID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="TotalPrice" Type="int" />
+          <Property Name="OrderDate" Type="date" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="No" Type="varchar" MaxLength="20" />
+          <Property Name="Street" Type="varchar" MaxLength="50" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="country" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="BDay" Type="date" />
+          <Property Name="password" Type="varchar" MaxLength="150" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Username" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <Association Name="FK_BookDetails_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="BookDetails" Type="Self.BookDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="BookDetails">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_UserDetais">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_BookDetails">
+          <End Role="BookDetails" Type="Self.BookDetails" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookDetails">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_UserDetais">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookShopDatabaseModelStoreContainer">
+          <EntitySet Name="AdminDetails" EntityType="Self.AdminDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookDetails" EntityType="Self.BookDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BookDetails_Category" Association="Self.FK_BookDetails_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="BookDetails" EntitySet="BookDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_UserDetais" Association="Self.FK_Cart_UserDetais">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_BookDetails" Association="Self.FK_Order_BookDetails">
+            <End Role="BookDetails" EntitySet="BookDetails" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_UserDetais" Association="Self.FK_Order_UserDetais">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookShopDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdminDetail">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BookDetail">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_BookDetails_Category" FromRole="BookDetails" ToRole="Category" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_BookDetails" FromRole="BookDetails" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="TotalPrice" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_Cart_UserDetais" FromRole="Cart" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BookDetails" Relationship="Self.FK_BookDetails_Category" FromRole="Category" ToRole="BookDetails" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="BookID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="TotalPrice" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BookDetail" Relationship="Self.FK_Order_BookDetails" FromRole="Order" ToRole="BookDetails" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_Order_UserDetais" FromRole="Order" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="No" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BDay" Type="DateTime" Precision="0" />
+          <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_UserDetais" FromRole="UserDetails" ToRole="Cart" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_UserDetais" FromRole="UserDetails" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_BookDetails_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="BookDetails" Type="Self.BookDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="BookDetails">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_BookDetails">
+          <End Role="BookDetails" Type="Self.BookDetail" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookDetails">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_UserDetais">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_UserDetais">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookShopDatabaseEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminDetails" EntityType="Self.AdminDetail" />
+          <EntitySet Name="BookDetails" EntityType="Self.BookDetail" />
+          <EntitySet Name="Carts" EntityType="Self.Cart" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
+          <AssociationSet Name="FK_BookDetails_Category" Association="Self.FK_BookDetails_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="BookDetails" EntitySet="BookDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_BookDetails" Association="Self.FK_Order_BookDetails">
+            <End Role="BookDetails" EntitySet="BookDetails" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_UserDetais" Association="Self.FK_Cart_UserDetais">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_UserDetais" Association="Self.FK_Order_UserDetais">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookShopDatabaseModelStoreContainer" CdmEntityContainer="BookShopDatabaseEntities2">
+          <EntitySetMapping Name="AdminDetails">
+            <EntityTypeMapping TypeName="BookShopDatabaseModel.AdminDetail">
+              <MappingFragment StoreEntitySet="AdminDetails">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookDetails">
+            <EntityTypeMapping TypeName="BookShopDatabaseModel.BookDetail">
+              <MappingFragment StoreEntitySet="BookDetails">
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="BookShopDatabaseModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="BookShopDatabaseModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="BookShopDatabaseModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="BookShopDatabaseModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BDay" ColumnName="BDay" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
